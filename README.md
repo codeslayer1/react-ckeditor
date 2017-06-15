@@ -9,8 +9,8 @@
 ## Usage
 
 ```js
-var CKEditor = require('react-ckeditor-component');
- 
+import CKEditor from "react-ckeditor-component";
+
 class Example extends Component {
     constructor(props) {
         super(props);
@@ -28,13 +28,13 @@ class Example extends Component {
 
     render() {
         return (
-            <CKEditor content={this.state.content} onChange={this.updateContent} />
+            <CKEditor activeClass="p10" content={this.state.content} onChange={this.updateContent} />
         )
     }
 }
 ```
 
-The package also includes an in-built example under the `/example` folder.
+The package also includes an in-built example under the `/example` folder. Run the sample application by cloning project and running npm start.
 
 ## Props
 
@@ -83,6 +83,13 @@ The package also includes an in-built example under the `/example` folder.
           <td>Standard CKEditor</td>
           <td>No</td>
           <td>The CKEditor script that needs to be loaded. Pass a custom script with plugins if you need a customized CKEditor.</td>
+        </tr>
+        <tr>
+          <td>activeClass</td>
+          <td>string</td>
+          <td></td>
+          <td>No</td>
+          <td>Any Css class to be used with CKEditor container div.</td>
         </tr>
     </tbody>
 </table>

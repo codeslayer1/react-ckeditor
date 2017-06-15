@@ -71,7 +71,7 @@ class CKEditor extends React.Component {
   }
 
   render() {
-    return <div />;
+    return <div className={this.props.activeClass} />;
   }
 }
 
@@ -79,7 +79,8 @@ CKEditor.defaultProps = {
   content: "",
   config: {},
   isScriptLoaded: false,
-  scriptUrl: defaultScriptUrl
+  scriptUrl: defaultScriptUrl,
+  activeClass: ""
 };
 
 CKEditor.propTypes = {
@@ -87,7 +88,8 @@ CKEditor.propTypes = {
   config: React.PropTypes.object,
   onChange: React.PropTypes.func,
   isScriptLoaded: React.PropTypes.bool,
-  scriptUrl: React.PropTypes.string
+  scriptUrl: React.PropTypes.string,
+  activeClass: React.PropTypes.string
 };
 
 export default CKEditor;

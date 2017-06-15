@@ -1,3 +1,1 @@
-import ckeditor from './ckeditor';
-
-export default ckeditor;
+module.exports = require('./ckeditor');
