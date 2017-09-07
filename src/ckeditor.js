@@ -47,13 +47,14 @@ class CKEditor extends React.Component {
     );
 
     this.editorInstance.on("change", () => {
+      const content = this.editorInstance.getData()
       this.setState({
-        content: this.editorInstance.getData()
+        content
       });
 
       //call callback if present
       if(this.props.onChange){
-        this.props.onChange(this.state.content);
+        this.props.onChange(content);
       }
     });
   }
