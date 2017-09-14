@@ -18,7 +18,6 @@ class CKEditor extends React.Component {
     //State initialization
     this.state = {
       isScriptLoaded: this.props.isScriptLoaded,
-      content: this.props.content,
       config: this.props.config
     };
   }
@@ -27,6 +26,8 @@ class CKEditor extends React.Component {
   componentDidMount() {
     if(!this.props.isScriptLoaded){
       loadScript(this.props.scriptUrl, this.onLoad);
+    }else{
+      this.onLoad();
     }
   }
 
@@ -43,14 +44,11 @@ class CKEditor extends React.Component {
     this.editorInstance = window.CKEDITOR.appendTo(
       ReactDOM.findDOMNode(this),
       this.state.config,
-      this.state.content
+      this.props.content
     );
 
     this.editorInstance.on("change", () => {
-      const content = this.editorInstance.getData()
-      this.setState({
-        content
-      });
+      const content = this.editorInstance.getData();
 
       //call callback if present
       if(this.props.onChange){
