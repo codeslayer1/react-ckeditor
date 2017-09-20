@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 const loadScript = require('load-script');
 
@@ -71,12 +72,12 @@ CKEditor.defaultProps = {
 };
 
 CKEditor.propTypes = {
-  content: React.PropTypes.any,
-  config: React.PropTypes.object,
-  onChange: React.PropTypes.func,
-  isScriptLoaded: React.PropTypes.bool,
-  scriptUrl: React.PropTypes.string,
-  activeClass: React.PropTypes.string
+  content: PropTypes.any,
+  config: PropTypes.object,
+  onChange: PropTypes.func,
+  isScriptLoaded: PropTypes.bool,
+  scriptUrl: PropTypes.string,
+  activeClass: PropTypes.string
 };
 
 export default CKEditor;
