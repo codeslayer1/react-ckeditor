@@ -47,11 +47,11 @@ class Example extends Component {
             <CKEditor 
               activeClass="p10" 
               content={this.state.content} 
-              events={
+              events={{
                 "blur": this.onBlur,
                 "afterPaste": this.afterPaste,
                 "change": this.onChange
-              }
+              }}
              />
         )
     }
