@@ -7,7 +7,7 @@ var defaultScriptUrl = "https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js";
 
 /**
  * @author codeslayer1
- * @description CKEditor component to render a CKEditor textarea with defined configs and onChange callback handler
+ * @description CKEditor component to render a CKEditor textarea with defined configs and all CKEditor events handler
  */
 class CKEditor extends React.Component {
   constructor(props) {
@@ -48,14 +48,26 @@ class CKEditor extends React.Component {
       this.props.content
     );
 
+    //Register listener for change event.
+    //PS - This prop is now deprecated since change event can now be directly listened via events prop.
+    /*
+    ******** DEPRECATED ********
     this.editorInstance.on("change", () => {
       const content = this.editorInstance.getData();
 
-      //call callback if present
+      //call onChange callback if present
       if(this.props.onChange){
         this.props.onChange(content);
       }
     });
+    */
+
+    //Register listener for custom events if any
+    for(var event in this.props.events){
+      var eventHandler = this.props.events[event];
+
+      this.editorInstance.on(event, eventHandler);
+    }
   }
 
   render() {
@@ -68,16 +80,17 @@ CKEditor.defaultProps = {
   config: {},
   isScriptLoaded: false,
   scriptUrl: defaultScriptUrl,
-  activeClass: ""
+  activeClass: "",
+  events: {}
 };
 
 CKEditor.propTypes = {
   content: PropTypes.any,
   config: PropTypes.object,
-  onChange: PropTypes.func,
   isScriptLoaded: PropTypes.bool,
   scriptUrl: PropTypes.string,
-  activeClass: PropTypes.string
+  activeClass: PropTypes.string,
+  events: PropTypes.object
 };
 
 export default CKEditor;

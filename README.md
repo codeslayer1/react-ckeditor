@@ -25,10 +25,34 @@ class Example extends Component {
             content: newContent
         })
     }
+    
+    onChange(evt){
+      console.log("onChange fired with event info: ", evt);
+      var newContent = evt.editor.getData();
+      this.setState({
+        content: newContent
+      })
+    }
+    
+    onBlur(evt){
+      console.log("onBlur event called with event info: ", evt);
+    }
+    
+    afterPaste(evt){
+      console.log("afterPaste event called with event info: ", evt);
+    }
 
     render() {
         return (
-            <CKEditor activeClass="p10" content={this.state.content} onChange={this.updateContent} />
+            <CKEditor 
+              activeClass="p10" 
+              content={this.state.content} 
+              events={
+                "blur": this.onBlur,
+                "afterPaste": this.afterPaste,
+                "change": this.onChange
+              }
+             />
         )
     }
 }
@@ -57,11 +81,11 @@ The package also includes an in-built example under the `/example` folder. Run t
           <td>Default value to be set in CKEditor</td>
         </tr>
         <tr>
-          <td>onChange</td>
+          <td>onChange (Deprecated)</td>
           <td>function</td>
           <td></td>
           <td>No</td>
-          <td>Callback function to be called onChange</td>
+          <td>Deprecated in v1.1. Is now handled via events prop.</td>
         </tr>
         <tr>
           <td>config</td>
@@ -91,8 +115,17 @@ The package also includes an in-built example under the `/example` folder. Run t
           <td>No</td>
           <td>Any Css class to be used with CKEditor container div.</td>
         </tr>
+        <tr>
+          <td>events (New)</td>
+          <td>object</td>
+          <td></td>
+          <td>No</td>
+          <td>An object of custom event handlers so that you can listen to any CKEditor event (Added in v1.1)</td>
+        </tr>
     </tbody>
 </table>
+
+Note- Starting v1.1, you can listen to `change` event directly by passing its event handler in `events` prop instead of passing a separate onChange prop. The onChange prop is now deprecated.
 
 ## License
 

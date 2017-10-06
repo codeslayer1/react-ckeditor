@@ -22,9 +22,28 @@ class Example extends React.Component {
   //   })
   // }
 
+  onChange(evt){
+    console.log("onChange fired with event info: ",evt, "and data: ",evt.editor.getData());
+  }
+
+  onBlur(evt){
+    console.log("onBlur fired with event info: ",evt);
+  }
+
+  afterPaste(evt){
+    console.log("afterPaste fired with event info: ",evt);
+  }
+
   render() {
     return (
-      <CKEditor content={this.state.content}/>
+      <CKEditor
+        content={this.state.content}
+        events={{
+          blur: this.onBlur,
+          afterPaste: this.afterPaste,
+          change: this.onChange
+        }}
+      />
     );
   }
 }
