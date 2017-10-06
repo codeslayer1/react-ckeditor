@@ -85,7 +85,7 @@ The package also includes an in-built example under the `/example` folder. Run t
           <td>function</td>
           <td></td>
           <td>No</td>
-          <td>Deprecated in v1.1. Is now handled via events prop.</td>
+          <td>Deprecated in v1.0.6. Is now handled via events prop.</td>
         </tr>
         <tr>
           <td>config</td>
@@ -120,12 +120,12 @@ The package also includes an in-built example under the `/example` folder. Run t
           <td>object</td>
           <td></td>
           <td>No</td>
-          <td>An object of custom event handlers so that you can listen to any CKEditor event (Added in v1.1)</td>
+          <td>An object of custom event handlers so that you can listen to any CKEditor event (Added in v1.0.6)</td>
         </tr>
     </tbody>
 </table>
 
-Note- Starting v1.1, you can listen to `change` event directly by passing its event handler in `events` prop instead of passing a separate onChange prop. The onChange prop is now deprecated.
+Note- Starting v1.0.6, you can listen to `change` event directly by passing its event handler in `events` prop instead of passing a separate onChange prop. The onChange prop is now deprecated.
 
 ## License
 
