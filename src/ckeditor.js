@@ -32,7 +32,13 @@ class CKEditor extends React.Component {
     }
   }
 
-  onLoad(){
+  componentWillUnmount() {
+    this.unmounting = true;
+  }
+
+  onLoad() {
+    if (this.unmounting) return;
+
     this.setState({
       isScriptLoaded: true
     });
