@@ -36,6 +36,13 @@ class CKEditor extends React.Component {
     this.unmounting = true;
   }
 
+  reloadEditor() {
+    clearTimeout(this.timeout);
+    if (!this.editorInstance.ui.editor.loaded) {
+      loadScript(this.props.scriptUrl, this.onLoad);
+    }
+  }
+
   onLoad() {
     if (this.unmounting) return;
 
@@ -60,6 +67,8 @@ class CKEditor extends React.Component {
 
       this.editorInstance.on(event, eventHandler);
     }
+
+    this.timeout = setTimeout(this.reloadEditor.bind(this), 3000);
   }
 
   render() {
