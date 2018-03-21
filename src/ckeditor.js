@@ -25,15 +25,19 @@ class CKEditor extends React.Component {
 
   //load ckeditor script as soon as component mounts if not already loaded
   componentDidMount() {
-    if(!this.props.isScriptLoaded){
+    if (!this.props.isScriptLoaded) {
       loadScript(this.props.scriptUrl, this.onLoad);
-    }else{
+    } else {
       this.onLoad();
     }
   }
 
   componentWillUnmount() {
     this.unmounting = true;
+    if (this.editorInstance) {
+      this.editorInstance.removeAllListeners();
+      window.CKEDITOR.remove(this.editorInstance);
+    }
   }
 
   onLoad() {
@@ -69,7 +73,7 @@ class CKEditor extends React.Component {
     */
 
     //Register listener for custom events if any
-    for(var event in this.props.events){
+    for (var event in this.props.events) {
       var eventHandler = this.props.events[event];
 
       this.editorInstance.on(event, eventHandler);
