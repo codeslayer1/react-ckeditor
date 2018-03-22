@@ -92,7 +92,7 @@ class CKEditor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.registerEventHandlers(nextProps.events, this.props.events);
+    if (this.editorInstance) this.registerEventHandlers(nextProps.events, this.props.events);
   }
 
   render() {
