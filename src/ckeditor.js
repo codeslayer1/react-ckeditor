@@ -15,6 +15,7 @@ class CKEditor extends React.Component {
 
     //Bindings
     this.onLoad = this.onLoad.bind(this);
+    this.registerEventHandlers = this.registerEventHandlers.bind(this);
 
     //State initialization
     this.state = {
@@ -72,12 +73,26 @@ class CKEditor extends React.Component {
     });
     */
 
-    //Register listener for custom events if any
-    for (var event in this.props.events) {
-      var eventHandler = this.props.events[event];
+    this.registerEventHandlers(this.props.events);
+  }
 
-      this.editorInstance.on(event, eventHandler);
+  registerEventHandlers(events, prevEvents) {
+    prevEvents = prevEvents || {};
+
+    //Register listener for custom events if any
+    for (var event in events) {
+      if (events[event] !== prevEvents[event]) {
+        var prevEventHandler = prevEvents[event];
+        if (prevEventHandler) this.editorInstance.removeListener(event, prevEventHandler);
+
+        var eventHandler = events[event];
+        this.editorInstance.on(event, eventHandler);
+      }
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.registerEventHandlers(nextProps.events, this.props.events);
   }
 
   render() {
