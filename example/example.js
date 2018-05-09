@@ -10,17 +10,16 @@ class Example extends React.Component {
     this.state = {
       content: "Hello World"
     };
-
-    //setInterval(this.setContent.bind(this), 1000)
+    this.setContent = this.setContent.bind(this)
   }
 
   //------ Test for race condition ------ //
-  // setContent(){
-  //   console.log("Setting content");
-  //   this.setState({
-  //     content: "Hello World " + Math.random()
-  //   })
-  // }
+  setContent(){
+    console.log("Setting content");
+    this.setState({
+      content: "Hello World " + Math.random()
+    })
+  }
 
   onChange(evt){
     console.log("onChange fired with event info: ",evt, "and data: ",evt.editor.getData());
@@ -36,14 +35,17 @@ class Example extends React.Component {
 
   render() {
     return (
-      <CKEditor
-        content={this.state.content}
-        events={{
-          blur: this.onBlur,
-          afterPaste: this.afterPaste,
-          change: this.onChange
-        }}
-      />
+      <div>
+        <button onClick={() => this.setContent()} children='Set content' />
+        <CKEditor
+          content={this.state.content}
+          events={{
+            blur: this.onBlur,
+            afterPaste: this.afterPaste,
+            change: this.onChange
+          }}
+        />
+      </div>
     );
   }
 }
