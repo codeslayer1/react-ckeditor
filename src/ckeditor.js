@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import ReactDOM from "react-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
 const loadScript = require('load-script');
 
-var defaultScriptUrl = "https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js";
+var defaultScriptUrl = 'https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js';
 
 /**
  * @author codeslayer1
@@ -18,17 +18,23 @@ class CKEditor extends React.Component {
 
     //State initialization
     this.state = {
-      isScriptLoaded: this.props.isScriptLoaded,
-      config: this.props.config
+      isScriptLoaded: props.isScriptLoaded
     };
   }
 
   //load ckeditor script as soon as component mounts if not already loaded
   componentDidMount() {
-    if(!this.props.isScriptLoaded){
+    if (!this.state.isScriptLoaded) {
       loadScript(this.props.scriptUrl, this.onLoad);
-    }else{
+    } else {
       this.onLoad();
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    const editor = this.editorInstance;
+    if (editor && editor.getData() !== props.content) {
+      editor.setData(props.content);
     }
   }
 
@@ -44,18 +50,18 @@ class CKEditor extends React.Component {
     });
 
     if (!window.CKEDITOR) {
-      console.error("CKEditor not found");
+      console.error('CKEditor not found');
       return;
     }
 
     this.editorInstance = window.CKEDITOR.appendTo(
       ReactDOM.findDOMNode(this),
-      this.state.config,
+      this.props.config,
       this.props.content
     );
 
     //Register listener for custom events if any
-    for(var event in this.props.events){
+    for (var event in this.props.events) {
       var eventHandler = this.props.events[event];
 
       this.editorInstance.on(event, eventHandler);
@@ -68,11 +74,11 @@ class CKEditor extends React.Component {
 }
 
 CKEditor.defaultProps = {
-  content: "",
+  content: '',
   config: {},
   isScriptLoaded: false,
   scriptUrl: defaultScriptUrl,
-  activeClass: "",
+  activeClass: '',
   events: {}
 };
 
