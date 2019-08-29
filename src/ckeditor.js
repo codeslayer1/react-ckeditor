@@ -63,8 +63,13 @@ class CKEditor extends React.Component {
     //Register listener for custom events if any
     for (var event in this.props.events) {
       var eventHandler = this.props.events[event];
-
-      this.editorInstance.on(event, eventHandler);
+      if (event === 'dialogDefinition') {
+        // dialogDefinition event belongs to CKEDITOR, not CKEDITOR.editor
+        // https://stackoverflow.com/questions/31422539/dialogdefinition-event-is-not-called-for-any-dialog-while-initialization-of-ck
+        window.CKEDITOR.on('dialogDefinition', eventHandler);
+      } else {
+        this.editorInstance.on(event, eventHandler);
+      }
     }
   }
 
