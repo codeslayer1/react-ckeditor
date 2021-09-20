@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 const loadScript = require('load-script');
 
-var defaultScriptUrl = 'https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js';
+var defaultScriptUrl = 'https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js';
 
 /**
  * @author codeslayer1
